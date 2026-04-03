@@ -42,6 +42,13 @@ MODEL_COLORS = [
 ]
 
 
+def _hex_to_rgba(hex_color: str, alpha: float = 0.2) -> str:
+    """Convert a 6-char hex color to an rgba() string Plotly accepts."""
+    hex_color = hex_color.lstrip("#")
+    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+    return f"rgba({r},{g},{b},{alpha})"
+
+
 def _apply_layout(fig: go.Figure, **overrides) -> go.Figure:
     layout = {**_LAYOUT_DEFAULTS, **overrides}
     fig.update_layout(**layout)
@@ -269,7 +276,7 @@ def plot_psd(
                     x=np.concatenate([freqs[mask], freqs[mask][::-1]]),
                     y=np.concatenate([psd[mask], np.zeros(mask.sum())]),
                     fill="toself",
-                    fillcolor=color + "33",
+                    fillcolor=_hex_to_rgba(color, alpha=0.2),
                     line=dict(width=0),
                     name=f"{band} ({low}-{high} Hz)",
                     hoverinfo="name",
