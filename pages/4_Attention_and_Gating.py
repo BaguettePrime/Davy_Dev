@@ -87,8 +87,9 @@ with i3:
 
 st.markdown(
     callout_box(
-        'Like a doctor comparing hippocampus activity <em>now</em> with cortex activity <em>2 seconds ago</em> — '
-        'these delayed cross-channel interactions reveal how information propagates through the brain.',
+        'Like comparing frontal electrode activity <em>now</em> with occipital electrode activity '
+        '<em>a few hundred milliseconds ago</em> — these delayed cross-channel interactions '
+        'reveal how neural information propagates across brain regions.',
         "🏥", ACCENT_PURPLE,
     ),
     unsafe_allow_html=True,

@@ -345,8 +345,8 @@ st.markdown(section_header("7. References & Links"), unsafe_allow_html=True)
 
 st.markdown(
     f"""
-**Paper 1** — R. Thomas, D. Darankoum, M. Villalba, C. Allioux, J. Bhatt, J. Bhatt, J. Bhatt, J. Volle, C. Bhatt.
-*From epilepsy seizure classification to detection: a deep learning approach applied across species.*
+**Paper 1** — D. Darankoum, M. Villalba, C. Allioux, B. Caraballo, C. Dumont, E. Gronlier, C. Roucard, Y. Roche, C. Habermacher, S. Grudinin, J. Volle.
+*From epilepsy seizure classification to detection: a deep learning-based approach for raw EEG signals.*
 Neuroscience Informatics, 2026.
 
 **Paper 2** — D. Darankoum, J. Volle, C. Habermacher, S. Grudinin.
@@ -355,7 +355,7 @@ arXiv:2509.20489, 2025.
 
 **Paper 3** — D. Darankoum, C. Habermacher, J. Volle, S. Grudinin.
 *SpecMoE: Spectral Mixture-of-Experts Foundation Model for Cross-Species EEG Decoding.*
-arXiv, 2026.
+arXiv:2603.16739, 2026.
 
 ---
 
