@@ -28,6 +28,13 @@ from utils.viz import MODEL_COLORS, plot_attention_heatmap, plot_multichannel_ee
 
 inject_css()
 
+if "visited_modules" not in st.session_state:
+    st.session_state.visited_modules = set()
+st.session_state.visited_modules.add(4)
+
+from components.progress_tracker import progress_tracker
+progress_tracker(current=4, visited=list(st.session_state.visited_modules))
+
 # ---- Header ----
 st.markdown(f"{paper_badge('Paper 2')}", unsafe_allow_html=True)
 st.title("🎯 Attention & Gating")

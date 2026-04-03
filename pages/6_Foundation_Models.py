@@ -37,6 +37,13 @@ from utils.viz import (
 
 inject_css()
 
+if "visited_modules" not in st.session_state:
+    st.session_state.visited_modules = set()
+st.session_state.visited_modules.add(6)
+
+from components.progress_tracker import progress_tracker
+progress_tracker(current=6, visited=list(st.session_state.visited_modules))
+
 # ---- Header ----
 st.markdown(f"{paper_badge('Paper 3')}", unsafe_allow_html=True)
 st.title("🏗️ Foundation Models for EEG")

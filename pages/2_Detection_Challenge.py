@@ -33,6 +33,13 @@ from utils.viz import (
 
 inject_css()
 
+if "visited_modules" not in st.session_state:
+    st.session_state.visited_modules = set()
+st.session_state.visited_modules.add(2)
+
+from components.progress_tracker import progress_tracker
+progress_tracker(current=2, visited=list(st.session_state.visited_modules))
+
 # ---- Header ----
 st.markdown(f"{paper_badge('Paper 1')}", unsafe_allow_html=True)
 st.title("🔍 The Detection Challenge")

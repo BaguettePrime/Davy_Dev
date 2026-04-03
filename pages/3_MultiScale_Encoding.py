@@ -37,6 +37,13 @@ from utils.viz import (
 # ---------------------------------------------------------------------------
 inject_css()
 
+if "visited_modules" not in st.session_state:
+    st.session_state.visited_modules = set()
+st.session_state.visited_modules.add(3)
+
+from components.progress_tracker import progress_tracker
+progress_tracker(current=3, visited=list(st.session_state.visited_modules))
+
 st.markdown(paper_badge("Paper 2"), unsafe_allow_html=True)
 st.markdown(
     f'<h1 style="color:{TEXT_PRIMARY};margin-top:12px;">Multi-Scale Encoding</h1>',

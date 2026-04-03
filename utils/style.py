@@ -74,6 +74,94 @@ def section_header(title: str, subtitle: str = "") -> str:
     )
 
 
+def neuro_card(content_html: str, border_color: str = "") -> str:
+    """Wrap *content_html* in a ``.neuro-card`` div with optional border-top color."""
+    border_style = f"border-top:3px solid {border_color};" if border_color else ""
+    return f'<div class="neuro-card" style="{border_style}">{content_html}</div>'
+
+
+def audience_card(icon: str, title: str, description: str, color: str) -> str:
+    """Return HTML for an audience card with the given border-top *color*."""
+    return (
+        f'<div class="audience-card" style="border-top:3px solid {color};">'
+        f'<div style="font-size:2rem;margin-bottom:8px;">{icon}</div>'
+        f'<div style="color:{TEXT_PRIMARY};font-size:1.1rem;font-weight:700;'
+        f'margin-bottom:8px;">{title}</div>'
+        f'<div style="color:{TEXT_SECONDARY};font-size:0.88rem;line-height:1.5;">'
+        f'{description}</div></div>'
+    )
+
+
+def paper_card(badge_html: str, title: str, authors: str, venue: str, color: str) -> str:
+    """Return HTML for a paper card on the home page."""
+    return (
+        f'<div class="paper-card" style="border-top:3px solid {color};">'
+        f'<div style="margin-bottom:12px;">{badge_html}</div>'
+        f'<div style="color:{TEXT_PRIMARY};font-size:1.05rem;font-weight:700;'
+        f'margin-bottom:6px;">{title}</div>'
+        f'<div style="color:{TEXT_SECONDARY};font-size:0.85rem;line-height:1.6;">'
+        f'{authors}<br><em>{venue}</em></div></div>'
+    )
+
+
+def info_paragraph(text: str) -> str:
+    """Return HTML for a styled paragraph (centered, max-width 800px)."""
+    return (
+        f'<div style="max-width:800px;margin:24px auto 32px auto;color:{TEXT_SECONDARY};'
+        f'font-size:1rem;line-height:1.7;text-align:center;">{text}</div>'
+    )
+
+
+def colored_header(text: str, color: str) -> str:
+    """Return HTML for a colored sub-heading ``<h4>``."""
+    return f'<h4 style="color:{color};margin-top:0;">{text}</h4>'
+
+
+def html_table(headers: list[str], rows: list[list[str]], col_colors: list[str] | None = None) -> str:
+    """Return a styled HTML table matching the dark theme."""
+    th_cells = "".join(
+        f'<th style="color:{TEXT_SECONDARY};padding:8px 12px;border-bottom:1px solid #1e293b;'
+        f'text-align:left;">{h}</th>'
+        for h in headers
+    )
+    body = ""
+    for row in rows:
+        cells = ""
+        for i, cell in enumerate(row):
+            color = col_colors[i] if col_colors and i < len(col_colors) else TEXT_PRIMARY
+            cells += (
+                f'<td style="color:{color};padding:8px 12px;'
+                f'border-bottom:1px solid #1e293b;">{cell}</td>'
+            )
+        body += f"<tr>{cells}</tr>"
+    return (
+        f'<table style="width:100%;border-collapse:collapse;background:{BG_CARD};'
+        f'border-radius:8px;overflow:hidden;">'
+        f"<thead><tr>{th_cells}</tr></thead>"
+        f"<tbody>{body}</tbody></table>"
+    )
+
+
+def app_item(icon: str, title: str, description: str) -> str:
+    """Return HTML for an app item card (icon + title + description in a flex row)."""
+    return (
+        f'<div style="display:flex;align-items:flex-start;gap:16px;'
+        f'background:{BG_CARD};border:1px solid #1e293b;border-radius:12px;'
+        f'padding:20px;margin:8px 0;">'
+        f'<div style="font-size:1.8rem;">{icon}</div>'
+        f'<div>'
+        f'<div style="color:{TEXT_PRIMARY};font-size:1.05rem;font-weight:700;'
+        f'margin-bottom:4px;">{title}</div>'
+        f'<div style="color:{TEXT_SECONDARY};font-size:0.9rem;line-height:1.5;">'
+        f'{description}</div></div></div>'
+    )
+
+
+def glow_title(text: str) -> str:
+    """Return the ``<h1 class="glow-header">`` pattern."""
+    return f'<h1 class="glow-header">{text}</h1>'
+
+
 FOOTER_HTML = f"""
 <hr style="border-color:{BG_CARD};margin-top:48px;">
 <div style="text-align:center;padding:24px 0;color:{TEXT_SECONDARY};font-size:0.8rem;">

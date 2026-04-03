@@ -27,6 +27,13 @@ from utils.viz import MODEL_COLORS, plot_comparison_bars, plot_timeline
 
 inject_css()
 
+if "visited_modules" not in st.session_state:
+    st.session_state.visited_modules = set()
+st.session_state.visited_modules.add(7)
+
+from components.progress_tracker import progress_tracker
+progress_tracker(current=7, visited=list(st.session_state.visited_modules))
+
 st.title("📊 Results & Impact")
 st.markdown(
     callout_box(
