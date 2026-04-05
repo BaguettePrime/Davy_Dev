@@ -14,12 +14,13 @@ home_page = st.Page("home.py", title="Home", icon="🏠")
 
 module_pages = [
     st.Page("pages/1_EEG_Fundamentals.py", title="EEG Fundamentals", icon="🧠"),
-    st.Page("pages/2_Detection_Challenge.py", title="Detection Challenge", icon="🔍"),
-    st.Page("pages/3_MultiScale_Encoding.py", title="Multi-Scale Encoding", icon="📊"),
-    st.Page("pages/4_Attention_and_Gating.py", title="Attention & Gating", icon="🎯"),
-    st.Page("pages/5_Learning_Representations.py", title="Learning Representations", icon="📐"),
-    st.Page("pages/6_Foundation_Models.py", title="Foundation Models", icon="🏗️"),
-    st.Page("pages/7_Results_and_Impact.py", title="Results & Impact", icon="🏆"),
+    st.Page("pages/2_DeepLearning_Primer.py", title="Deep Learning Primer", icon="🧭"),
+    st.Page("pages/3_Detection_Challenge.py", title="Detection Challenge", icon="🔍"),
+    st.Page("pages/4_MultiScale_Encoding.py", title="Multi-Scale Encoding", icon="📊"),
+    st.Page("pages/5_Attention_and_Gating.py", title="Attention & Gating", icon="🎯"),
+    st.Page("pages/6_Learning_Representations.py", title="Learning Representations", icon="📐"),
+    st.Page("pages/7_Foundation_Models.py", title="Foundation Models", icon="🏗️"),
+    st.Page("pages/8_Results_and_Impact.py", title="Results & Impact", icon="🏆"),
 ]
 
 page = st.navigation(

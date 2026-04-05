@@ -9,6 +9,7 @@ _component_func = components.declare_component("progress_tracker", path=_COMPONE
 
 MODULE_NAMES = [
     "EEG Fundamentals",
+    "DL Primer",
     "Detection Challenge",
     "Multi-Scale Encoding",
     "Attention & Gating",
@@ -17,13 +18,20 @@ MODULE_NAMES = [
     "Results & Impact",
 ]
 
-def progress_tracker(current: int, visited: list[int] | None = None, key: str | None = None):
+def progress_tracker(
+    current: int,
+    visited: list[int] | None = None,
+    key: str | None = None,
+    current_color: str | None = None,
+):
     """Render the module progress tracker.
 
     Args:
-        current: 1-indexed current module number (1-7).
+        current: 1-indexed current module number (1-8).
         visited: List of 1-indexed module numbers the user has visited.
         key: Streamlit component key.
+        current_color: Optional hex color for the "current" step highlight
+            (e.g. the active paper's color). Defaults to amber.
     """
     if visited is None:
         visited = []
@@ -31,6 +39,7 @@ def progress_tracker(current: int, visited: list[int] | None = None, key: str | 
         current=current,
         visited=visited,
         modules=MODULE_NAMES,
+        current_color=current_color or "#F59E0B",
         key=key,
         default=None,
     )

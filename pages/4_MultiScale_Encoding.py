@@ -1,4 +1,4 @@
-"""Page 3 -- Multi-Scale Encoding (Paper 2: Encoder).
+"""Page 4 -- Multi-Scale Encoding (Paper 2: Encoder).
 
 For researchers and students: explains why EEG requires multi-scale
 feature extraction and how dilated convolutions achieve it.
@@ -20,10 +20,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import (
@@ -39,12 +43,20 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(3)
+st.session_state.visited_modules.add(4)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=3, visited=list(st.session_state.visited_modules))
+progress_tracker(current=4, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
-st.markdown(paper_badge("Paper 2"), unsafe_allow_html=True)
+st.markdown(
+    paper_identity_banner(
+        "Paper 2",
+        "CoSupFormer — Dual-path dilated CNN encoder",
+    ),
+    unsafe_allow_html=True,
+)
 st.markdown(
     f'<h1 style="color:{TEXT_PRIMARY};margin-top:12px;">Multi-Scale Encoding</h1>',
     unsafe_allow_html=True,
@@ -512,4 +524,9 @@ st.markdown(
 # ---------------------------------------------------------------------------
 # Footer
 # ---------------------------------------------------------------------------
+render_bottom_nav(
+    prev_page=("pages/3_Detection_Challenge.py", "Detection Challenge"),
+    next_page=("pages/5_Attention_and_Gating.py", "Attention & Gating"),
+)
+
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

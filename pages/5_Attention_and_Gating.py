@@ -1,4 +1,4 @@
-"""Page 4 — Attention & Gating (Paper 2 — Attention Module)."""
+"""Page 5 — Attention & Gating (Paper 2 — Attention Module)."""
 
 import numpy as np
 import pandas as pd
@@ -18,10 +18,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import MODEL_COLORS, plot_attention_heatmap, plot_multichannel_eeg
@@ -30,13 +34,21 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(4)
+st.session_state.visited_modules.add(5)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=4, visited=list(st.session_state.visited_modules))
+progress_tracker(current=5, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
 # ---- Header ----
-st.markdown(f"{paper_badge('Paper 2')}", unsafe_allow_html=True)
+st.markdown(
+    paper_identity_banner(
+        "Paper 2",
+        "CoSupFormer — Global attention + channel gating",
+    ),
+    unsafe_allow_html=True,
+)
 st.title("🎯 Attention & Gating")
 st.markdown(
     callout_box(
@@ -264,5 +276,10 @@ with tab_noisy:
         ),
         unsafe_allow_html=True,
     )
+
+render_bottom_nav(
+    prev_page=("pages/4_MultiScale_Encoding.py", "Multi-Scale Encoding"),
+    next_page=("pages/6_Learning_Representations.py", "Learning Representations"),
+)
 
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

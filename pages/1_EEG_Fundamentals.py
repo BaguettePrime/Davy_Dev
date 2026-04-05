@@ -22,10 +22,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import plot_eeg_signal, plot_psd
@@ -40,15 +44,18 @@ if "visited_modules" not in st.session_state:
 st.session_state.visited_modules.add(1)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=1, visited=list(st.session_state.visited_modules))
+progress_tracker(current=1, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
 # ---------------------------------------------------------------------------
 # Header
 # ---------------------------------------------------------------------------
 st.markdown(
-    f'<div style="margin-bottom:8px;">'
-    f'{paper_badge("Paper 1")} {paper_badge("Paper 2")} {paper_badge("Paper 3")}'
-    f"</div>",
+    paper_identity_banner(
+        "Paper 1, Paper 2, Paper 3",
+        "Shared foundation — terminology and datasets used across all three papers",
+    ),
     unsafe_allow_html=True,
 )
 st.markdown(
@@ -410,4 +417,9 @@ st.markdown(
 # ---------------------------------------------------------------------------
 # Footer
 # ---------------------------------------------------------------------------
+render_bottom_nav(
+    prev_page=None,
+    next_page=("pages/2_DeepLearning_Primer.py", "Deep Learning Primer"),
+)
+
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

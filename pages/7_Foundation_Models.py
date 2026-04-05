@@ -1,4 +1,4 @@
-"""Page 6 — Foundation Models for EEG (Paper 3 — SpecMoE)."""
+"""Page 7 — Foundation Models for EEG (Paper 3 — SpecMoE)."""
 
 import numpy as np
 import plotly.graph_objects as go
@@ -22,10 +22,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import (
@@ -39,13 +43,21 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(6)
+st.session_state.visited_modules.add(7)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=6, visited=list(st.session_state.visited_modules))
+progress_tracker(current=7, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 3"])
+render_paper_legend_sidebar()
 
 # ---- Header ----
-st.markdown(f"{paper_badge('Paper 3')}", unsafe_allow_html=True)
+st.markdown(
+    paper_identity_banner(
+        "Paper 3",
+        "SpecMoE — Spectral Mixture-of-Experts foundation model",
+    ),
+    unsafe_allow_html=True,
+)
 st.title("🏗️ Foundation Models for EEG")
 st.markdown(
     callout_box(
@@ -259,5 +271,10 @@ else:
         ),
         unsafe_allow_html=True,
     )
+
+render_bottom_nav(
+    prev_page=("pages/6_Learning_Representations.py", "Learning Representations"),
+    next_page=("pages/8_Results_and_Impact.py", "Results & Impact"),
+)
 
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

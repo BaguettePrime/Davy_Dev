@@ -1,4 +1,4 @@
-"""Page 2 — The Detection Challenge (Paper 1)."""
+"""Page 3 — The Detection Challenge (Paper 1)."""
 
 import numpy as np
 import pandas as pd
@@ -19,10 +19,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import (
@@ -35,13 +39,21 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(2)
+st.session_state.visited_modules.add(3)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=2, visited=list(st.session_state.visited_modules))
+progress_tracker(current=3, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 1"])
+render_paper_legend_sidebar()
 
 # ---- Header ----
-st.markdown(f"{paper_badge('Paper 1')}", unsafe_allow_html=True)
+st.markdown(
+    paper_identity_banner(
+        "Paper 1",
+        "Thomas et al. — Seizure detection, not just classification",
+    ),
+    unsafe_allow_html=True,
+)
 st.title("🔍 The Detection Challenge")
 st.markdown(
     callout_box(
@@ -279,6 +291,11 @@ st.markdown(
     </div>
 </div>""",
     unsafe_allow_html=True,
+)
+
+render_bottom_nav(
+    prev_page=("pages/2_DeepLearning_Primer.py", "Deep Learning Primer"),
+    next_page=("pages/4_MultiScale_Encoding.py", "Multi-Scale Encoding"),
 )
 
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)
