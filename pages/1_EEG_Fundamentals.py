@@ -22,10 +22,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import plot_eeg_signal, plot_psd
@@ -40,15 +44,18 @@ if "visited_modules" not in st.session_state:
 st.session_state.visited_modules.add(1)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=1, visited=list(st.session_state.visited_modules))
+progress_tracker(current=1, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
 # ---------------------------------------------------------------------------
 # Header
 # ---------------------------------------------------------------------------
 st.markdown(
-    f'<div style="margin-bottom:8px;">'
-    f'{paper_badge("Paper 1")} {paper_badge("Paper 2")} {paper_badge("Paper 3")}'
-    f"</div>",
+    paper_identity_banner(
+        "Paper 1, Paper 2, Paper 3",
+        "Shared foundation — terminology and datasets used across all three papers",
+    ),
     unsafe_allow_html=True,
 )
 st.markdown(
@@ -281,11 +288,11 @@ st.markdown(
 )
 
 datasets = [
-    {"name": "TDBrain", "subjects": "1,274", "channels": "33", "species": "Human", "focus": "Parkinson's", "paper": "Paper 2"},
-    {"name": "ADFTD", "subjects": "88", "channels": "19", "species": "Human", "focus": "AD vs FTD vs HC", "paper": "Paper 3"},
-    {"name": "MACO", "subjects": "128-336", "channels": "2-3", "species": "Mouse", "focus": "Drug classes", "paper": "Paper 3"},
-    {"name": "Bonn", "subjects": "10", "channels": "1", "species": "Human", "focus": "Epilepsy", "paper": "Paper 1"},
-    {"name": "TUEG", "subjects": "14,987", "channels": "~23", "species": "Human", "focus": "Pretraining", "paper": "Paper 2"},
+    {"name": "TDBrain", "subjects": "1,274", "channels": "33", "species": "Human", "focus": "Parkinson's subset", "paper": "Paper 2"},
+    {"name": "ADFTD", "subjects": "88", "channels": "19", "species": "Human", "focus": "AD vs FTD vs HC", "paper": "Paper 2"},
+    {"name": "MACO", "subjects": "128–336", "channels": "2–3", "species": "Mouse", "focus": "Drug classification", "paper": "Paper 2"},
+    {"name": "Bonn", "subjects": "5×100", "channels": "1", "species": "Human", "focus": "Epilepsy", "paper": "Paper 1"},
+    {"name": "TUEG", "subjects": "14,987", "channels": "~23", "species": "Human", "focus": "Pre-training", "paper": "Paper 3"},
 ]
 
 # Metric cards row
@@ -332,7 +339,7 @@ st.markdown(dataset_table_html, unsafe_allow_html=True)
 st.markdown(
     f'<p style="color:{TEXT_SECONDARY};font-size:0.85rem;font-style:italic;margin-top:8px;">'
     "TUEG (Temple University EEG Corpus) contains ~27,000 hours of recordings and "
-    "was used exclusively for self-supervised pretraining in Paper 2.</p>",
+    "was used exclusively for self-supervised pretraining in Paper 3 (SpecMoE).</p>",
     unsafe_allow_html=True,
 )
 
@@ -410,4 +417,9 @@ st.markdown(
 # ---------------------------------------------------------------------------
 # Footer
 # ---------------------------------------------------------------------------
+render_bottom_nav(
+    prev_page=None,
+    next_page=("pages/2_DeepLearning_Primer.py", "Deep Learning Primer"),
+)
+
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

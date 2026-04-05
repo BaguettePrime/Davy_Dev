@@ -1,4 +1,4 @@
-"""Page 5 -- Learning Representations: from contrastive loss to foundation-model pretraining."""
+"""Page 6 -- Learning Representations: from contrastive loss to foundation-model pretraining."""
 
 import streamlit as st
 
@@ -14,10 +14,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import plot_embedding_scatter
@@ -29,17 +33,21 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(5)
+st.session_state.visited_modules.add(6)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=5, visited=list(st.session_state.visited_modules))
+progress_tracker(current=6, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
 # ---------------------------------------------------------------------------
 # Title
 # ---------------------------------------------------------------------------
 st.markdown(
-    f'<div style="text-align:center;margin-bottom:4px;">'
-    f'{paper_badge("Paper 2")} &nbsp; {paper_badge("Paper 3")}</div>',
+    paper_identity_banner(
+        "Paper 2, Paper 3",
+        "Bridge — from CoSupFormer's contrastive loss to SpecMoE's foundation model",
+    ),
     unsafe_allow_html=True,
 )
 st.markdown(
@@ -389,4 +397,9 @@ st.markdown(
 # ---------------------------------------------------------------------------
 # Footer
 # ---------------------------------------------------------------------------
+render_bottom_nav(
+    prev_page=("pages/5_Attention_and_Gating.py", "Attention & Gating"),
+    next_page=("pages/7_Foundation_Models.py", "Foundation Models"),
+)
+
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

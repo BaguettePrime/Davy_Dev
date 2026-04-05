@@ -117,6 +117,112 @@ def colored_header(text: str, color: str) -> str:
     return f'<h4 style="color:{color};margin-top:0;">{text}</h4>'
 
 
+def paper_identity_banner(paper: str, title: str, subtitle: str = "") -> str:
+    """Return a wide, colored banner identifying the paper a page belongs to.
+
+    Shown near the top of each paper-scoped module so the active paper stays
+    visible regardless of scroll position. Accepts "Paper 1", "Paper 2",
+    "Paper 3", or a comma-separated list like "Paper 1, Paper 2, Paper 3" for
+    pages that cover multiple papers.
+    """
+    papers = [p.strip() for p in paper.split(",")]
+    colors = [PAPER_COLORS.get(p, ACCENT_CYAN) for p in papers]
+    # Use the first paper's color as the dominant border/gradient.
+    primary = colors[0]
+    badges = " ".join(paper_badge(p) for p in papers)
+    gradient_stops = ", ".join(f"{c}22" for c in colors)
+    sub = ""
+    if subtitle:
+        sub = (
+            f'<div style="color:{TEXT_SECONDARY};font-size:0.9rem;'
+            f'margin-top:4px;">{subtitle}</div>'
+        )
+    return (
+        f'<div style="display:flex;align-items:center;gap:16px;'
+        f'background:linear-gradient(90deg, {gradient_stops}, transparent);'
+        f'border-left:5px solid {primary};border-radius:0 10px 10px 0;'
+        f'padding:14px 20px;margin:4px 0 20px 0;">'
+        f'<div style="flex-shrink:0;">{badges}</div>'
+        f'<div>'
+        f'<div style="color:{TEXT_PRIMARY};font-size:1.05rem;font-weight:700;">'
+        f"{title}</div>"
+        f"{sub}"
+        f"</div></div>"
+    )
+
+
+def paper_section_header(title: str, paper: str, subtitle: str = "") -> str:
+    """Section header whose left border and title color match the paper color."""
+    color = PAPER_COLORS.get(paper, ACCENT_CYAN)
+    sub = ""
+    if subtitle:
+        sub = (
+            f'<div style="color:{TEXT_SECONDARY};font-size:0.92rem;margin-top:4px;">'
+            f"{subtitle}</div>"
+        )
+    return (
+        f'<div style="margin:32px 0 16px 0;padding-left:14px;'
+        f'border-left:4px solid {color};">'
+        f'<h2 style="color:{color};margin:0;font-size:1.5rem;">{title}</h2>'
+        f"{sub}</div>"
+    )
+
+
+def render_paper_legend_sidebar():
+    """Render a compact paper color legend in the Streamlit sidebar.
+
+    Call this once per page (after ``inject_css``). It is a no-op if the
+    sidebar isn't available.
+    """
+    import streamlit as st
+
+    items_html = ""
+    for paper, color in PAPER_COLORS.items():
+        items_html += (
+            f'<div style="display:flex;align-items:center;gap:10px;'
+            f'margin:6px 0;font-size:0.82rem;color:{TEXT_SECONDARY};">'
+            f'<div style="width:14px;height:14px;border-radius:3px;'
+            f'background:{color};border:1px solid {color}aa;"></div>'
+            f"<span>{paper}</span></div>"
+        )
+    st.sidebar.markdown(
+        f'<div style="border-top:1px solid #1e293b;margin-top:16px;padding-top:12px;">'
+        f'<div style="color:{TEXT_PRIMARY};font-size:0.85rem;font-weight:600;'
+        f'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">'
+        "Paper legend</div>"
+        f"{items_html}"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_bottom_nav(prev_page: tuple | None = None, next_page: tuple | None = None):
+    """Render a Previous / Next module navigation row at the bottom of a page.
+
+    Each argument is either ``None`` or a tuple ``(path, label)``.
+    """
+    import streamlit as st
+
+    st.markdown(
+        f'<hr style="border-color:#1e293b;margin-top:32px;margin-bottom:16px;">',
+        unsafe_allow_html=True,
+    )
+    col_prev, col_spacer, col_next = st.columns([1, 2, 1])
+    with col_prev:
+        if prev_page is not None:
+            path, label = prev_page
+            st.page_link(path, label=f"← {label}")
+    with col_next:
+        if next_page is not None:
+            path, label = next_page
+            st.markdown(
+                '<div style="text-align:right;">',
+                unsafe_allow_html=True,
+            )
+            st.page_link(path, label=f"{label} →")
+            st.markdown("</div>", unsafe_allow_html=True)
+
+
 def html_table(headers: list[str], rows: list[list[str]], col_colors: list[str] | None = None) -> str:
     """Return a styled HTML table matching the dark theme."""
     th_cells = "".join(

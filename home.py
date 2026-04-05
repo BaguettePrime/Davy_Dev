@@ -91,7 +91,7 @@ with col3:
         ),
         unsafe_allow_html=True,
     )
-    st.page_link("pages/3_MultiScale_Encoding.py", label="Jump to architectures →", icon="🔬")
+    st.page_link("pages/4_MultiScale_Encoding.py", label="Jump to architectures →", icon="🔬")
 
 # ---------------------------------------------------------------------------
 # Paper cards

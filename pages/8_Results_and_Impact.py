@@ -1,4 +1,4 @@
-"""Page 7 — Results & Impact."""
+"""Page 8 — Results & Impact."""
 
 import numpy as np
 import pandas as pd
@@ -17,10 +17,14 @@ from utils.style import (
     FOOTER_HTML,
     TEXT_PRIMARY,
     TEXT_SECONDARY,
+    PAPER_COLORS,
     callout_box,
     inject_css,
     metric_card,
     paper_badge,
+    paper_identity_banner,
+    render_bottom_nav,
+    render_paper_legend_sidebar,
     section_header,
 )
 from utils.viz import MODEL_COLORS, plot_comparison_bars, plot_timeline
@@ -29,11 +33,20 @@ inject_css()
 
 if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
-st.session_state.visited_modules.add(7)
+st.session_state.visited_modules.add(8)
 
 from components.progress_tracker import progress_tracker
-progress_tracker(current=7, visited=list(st.session_state.visited_modules))
+progress_tracker(current=8, visited=list(st.session_state.visited_modules),
+                 current_color=PAPER_COLORS["Paper 2"])
+render_paper_legend_sidebar()
 
+st.markdown(
+    paper_identity_banner(
+        "Paper 1, Paper 2, Paper 3",
+        "Unified dashboard — results, limitations, and the combined research narrative",
+    ),
+    unsafe_allow_html=True,
+)
 st.title("📊 Results & Impact")
 st.markdown(
     callout_box(
@@ -345,8 +358,8 @@ st.markdown(section_header("7. References & Links"), unsafe_allow_html=True)
 
 st.markdown(
     f"""
-**Paper 1** — R. Thomas, D. Darankoum, M. Villalba, C. Allioux, J. Bhatt, J. Bhatt, J. Bhatt, J. Volle, C. Bhatt.
-*From epilepsy seizure classification to detection: a deep learning approach applied across species.*
+**Paper 1** — D. Darankoum, M. Villalba, C. Allioux, B. Caraballo, C. Dumont, E. Gronlier, C. Roucard, Y. Roche, C. Habermacher, S. Grudinin, J. Volle.
+*From epilepsy seizure classification to detection: a deep learning-based approach for raw EEG signals.*
 Neuroscience Informatics, 2026.
 
 **Paper 2** — D. Darankoum, J. Volle, C. Habermacher, S. Grudinin.
@@ -355,13 +368,18 @@ arXiv:2509.20489, 2025.
 
 **Paper 3** — D. Darankoum, C. Habermacher, J. Volle, S. Grudinin.
 *SpecMoE: Spectral Mixture-of-Experts Foundation Model for Cross-Species EEG Decoding.*
-arXiv, 2026.
+arXiv:2603.16739, 2026.
 
 ---
 
 **Affiliations:** Univ. Grenoble Alpes, CNRS, Grenoble INP, LJK · SynapCell SAS
 """,
     unsafe_allow_html=True,
+)
+
+render_bottom_nav(
+    prev_page=("pages/7_Foundation_Models.py", "Foundation Models"),
+    next_page=None,
 )
 
 st.markdown(FOOTER_HTML, unsafe_allow_html=True)

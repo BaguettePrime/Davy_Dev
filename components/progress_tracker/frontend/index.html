@@ -113,8 +113,18 @@
     var current = args.current || 1;
     var visited = args.visited || [];
     var modules = args.modules || [];
+    var currentColor = args.current_color || "#F59E0B";
     var container = document.getElementById("tracker");
     container.innerHTML = "";
+
+    // Convert hex to rgba for semi-transparent background
+    function hexToRgba(hex, alpha) {
+      var h = hex.replace("#", "");
+      var r = parseInt(h.substring(0, 2), 16);
+      var g = parseInt(h.substring(2, 4), 16);
+      var b = parseInt(h.substring(4, 6), 16);
+      return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+    }
 
     var visitedSet = {};
     for (var i = 0; i < visited.length; i++) {
@@ -132,8 +142,14 @@
 
       var circleEl = document.createElement("div");
       circleEl.className = "circle";
-      if (isCurrent) circleEl.className += " current";
-      else if (isVisited) circleEl.className += " visited";
+      if (isCurrent) {
+        circleEl.className += " current";
+        circleEl.style.borderColor = currentColor;
+        circleEl.style.color = currentColor;
+        circleEl.style.background = hexToRgba(currentColor, 0.12);
+      } else if (isVisited) {
+        circleEl.className += " visited";
+      }
 
       if (isVisited) {
         circleEl.textContent = "\u2713";
@@ -143,8 +159,12 @@
 
       var labelEl = document.createElement("div");
       labelEl.className = "label";
-      if (isCurrent) labelEl.className += " current";
-      else if (isVisited) labelEl.className += " visited";
+      if (isCurrent) {
+        labelEl.className += " current";
+        labelEl.style.color = currentColor;
+      } else if (isVisited) {
+        labelEl.className += " visited";
+      }
       labelEl.textContent = modules[idx];
 
       stepEl.appendChild(circleEl);
