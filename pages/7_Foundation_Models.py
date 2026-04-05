@@ -45,9 +45,6 @@ if "visited_modules" not in st.session_state:
     st.session_state.visited_modules = set()
 st.session_state.visited_modules.add(7)
 
-from components.progress_tracker import progress_tracker
-progress_tracker(current=7, visited=list(st.session_state.visited_modules),
-                 current_color=PAPER_COLORS["Paper 3"])
 render_paper_legend_sidebar()
 
 # ---- Header ----

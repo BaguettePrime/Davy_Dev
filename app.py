@@ -23,10 +23,16 @@ module_pages = [
     st.Page("pages/8_Results_and_Impact.py", title="Results & Impact", icon="🏆"),
 ]
 
+reference_pages = [
+    st.Page("pages/9_Datasets.py", title="Datasets Reference", icon="📚"),
+    st.Page("pages/10_Quiz.py", title="Knowledge Check", icon="🧩"),
+]
+
 page = st.navigation(
     {
         "Home": [home_page],
         "Modules": module_pages,
+        "Reference": reference_pages,
     }
 )
 
