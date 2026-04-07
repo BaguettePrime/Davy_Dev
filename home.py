@@ -109,7 +109,7 @@ p1, p2, p3 = st.columns(3)
 with p1:
     st.markdown(
         paper_card(paper_badge("Paper 1"), "The Detection Challenge",
-                   "Thomas et al.", "Neuroscience Informatics, 2026", ACCENT_AMBER),
+                   "Darankoum et al.", "Neuroscience Informatics, 2026", ACCENT_AMBER),
         unsafe_allow_html=True,
     )
 
